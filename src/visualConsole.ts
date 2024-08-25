@@ -1,31 +1,79 @@
-const visualConsole = {
-  log: () => {
-    return console.log();
-  },
+import { ConsoleStyle } from "./types/visualConsole";
+import objectToCSSStyleString from "./utils/objectToCSSStyleString";
 
-  info: () => {
-    return console.info();
-  },
+const createVisualConsole = () => {
+  const privateMethod = ({
+    method,
+    message,
+    consoleStyle,
+  }: {
+    method: keyof Console;
+    message: string;
+    consoleStyle: ConsoleStyle;
+  }) => {
+    const cssStyle = objectToCSSStyleString(consoleStyle);
+    (console[method] as any)(`%c${message}`, cssStyle);
+  };
 
-  warn: () => {
-    return console.warn();
-  },
+  return {
+    log: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "log", message, consoleStyle }),
 
-  error: () => {
-    return console.error();
-  },
+    info: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "info", message, consoleStyle }),
 
-  assert: () => {
-    return console.assert();
-  },
+    warn: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "warn", message, consoleStyle }),
 
-  group: () => {
-    return console.group();
-  },
+    error: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "error", message, consoleStyle }),
 
-  groupCollapsed: () => {
-    return console.groupCollapsed();
-  },
+    assert: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "assert", message, consoleStyle }),
+
+    group: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "group", message, consoleStyle }),
+
+    groupCollapsed: ({
+      message,
+      consoleStyle,
+    }: {
+      message: string;
+      consoleStyle: ConsoleStyle;
+    }) => privateMethod({ method: "groupCollapsed", message, consoleStyle }),
+  };
 };
+
+const visualConsole = createVisualConsole();
 
 export default visualConsole;
