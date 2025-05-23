@@ -1,25 +1,25 @@
 {
   "name": "visual-console",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Styled console logs made simple. A visual wrapper for console logging.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "jest"
+    "build": "tsc"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaehehehe/visual-console.git"
+  },
+  "keywords": [
+    "console",
+    "styled-console",
+    "visual-console",
+    "logger"
+  ],
   "author": "Kae",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "@types/node": "^22.5.0",
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.4",
-    "ts-jest": "^29.2.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
-  }
+  "license": "MIT"
 }
