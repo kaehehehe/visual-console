@@ -5,5 +5,5 @@
 ## Install
 
 ```bash
-npm install visual-console
+npm install @kaehehehe/visual-console
 ```
