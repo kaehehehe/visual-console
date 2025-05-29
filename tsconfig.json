@@ -2,12 +2,14 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "ESNext",
-    "target": "ES5",
+    "target": "ESNext",
     "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"]
+  "include": ["src", "playground"]
 }
