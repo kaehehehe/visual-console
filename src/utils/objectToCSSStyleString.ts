@@ -1,8 +1,11 @@
-import { ConsoleStyle } from "../types/visualConsole";
+const camelToKebab = (str: string): string =>
+  str.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
 
-const objectToCSSStyleString = (styleObject: ConsoleStyle): string => {
+const objectToCSSStyleString = (
+  styleObject: Record<string, string>
+): string => {
   return Object.entries(styleObject)
-    .map(([key, value]) => (value ? `${key}: ${value};` : ""))
+    .map(([key, value]) => (value ? `${camelToKebab(key)}: ${value};` : ""))
     .join(" ");
 };
 
