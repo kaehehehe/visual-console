@@ -1,15 +1,11 @@
 # @kaehehehe/visual-console 🐰✨
 Styled console logs made simple — a cute visual wrapper for your console logging with fun themes and emojis! 🎉
 
----
-
 ### Features 🌈
 - Pretty themed logs: info, success, warn, error
 - Default cute emojis for each theme
 - Easy custom styles for your logs
 - Simple API for quick & delightful debugging
-
----
 
 ### Installation 🚀
 
@@ -21,8 +17,6 @@ pnpm add @kaehehehe/visual-console
 yarn add @kaehehehe/visual-console
 
 ```
-
----
 
 ### Usage 🎨
 
@@ -54,8 +48,6 @@ vc.log({
 
 ![스크린샷 2025-05-29 11 45 11](https://github.com/user-attachments/assets/2683f20a-846e-4afe-ac4b-6adba6942e86)
 
-
----
 
 ### API Summary 📚
 
