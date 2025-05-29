@@ -17,10 +17,8 @@
     "build": "tsc",
     "dev": "vite"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kaehehehe/visual-console.git"
-  },
+  "url": "git+https://github.com/kaehehehe/visual-console.git",
+  "homepage": "https://github.com/kaehehehe/visual-console#readme",
   "keywords": [
     "console",
     "styled-console",
