@@ -2,14 +2,13 @@ export type AllowedCSSProperties = Pick<
   CSSStyleDeclaration,
   | "background"
   | "border"
-  | "borderRadius"
   | "boxShadow"
-  | "clear"
-  | "float"
   | "color"
   | "cursor"
   | "display"
-  | "font"
+  | "fontSize"
+  | "fontWeight"
+  | "borderRadius"
   | "lineHeight"
   | "margin"
   | "outline"
@@ -20,7 +19,6 @@ export type AllowedCSSProperties = Pick<
   | "whiteSpace"
   | "wordSpacing"
   | "wordBreak"
-  | "writingMode"
 >;
 
 export type ConsoleStyle = {
