@@ -1,5 +1,9 @@
 import { ConsoleStyle } from "./types/visualConsole";
 import objectToCSSStyleString from "./utils/objectToCSSStyleString";
+import { consoleThemes, emojiMap } from "./themes/consoleThemes";
+
+type ConsoleMethod = keyof Console;
+type LogLevel = keyof typeof consoleThemes;
 
 const createVisualConsole = () => {
   const privateMethod = ({
@@ -7,12 +11,26 @@ const createVisualConsole = () => {
     message,
     consoleStyle,
   }: {
-    method: keyof Console;
+    method: ConsoleMethod;
     message: string;
     consoleStyle: ConsoleStyle;
   }) => {
     const cssStyle = objectToCSSStyleString(consoleStyle);
     (console[method] as any)(`%c${message}`, cssStyle);
+  };
+
+  const logWithTheme = ({
+    method = "log",
+    message,
+    theme,
+  }: {
+    method?: ConsoleMethod;
+    message: string;
+    theme: LogLevel;
+  }) => {
+    const consoleStyle = consoleThemes[theme];
+    const emoji = emojiMap[theme] || "";
+    privateMethod({ method, message: `${emoji} ${message}`, consoleStyle });
   };
 
   return {
@@ -23,6 +41,8 @@ const createVisualConsole = () => {
       message: string;
       consoleStyle: ConsoleStyle;
     }) => privateMethod({ method: "log", message, consoleStyle }),
+
+    logWithTheme,
 
     info: ({
       message,
