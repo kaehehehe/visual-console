@@ -12,10 +12,9 @@ Styled console logs made simple — a cute visual wrapper for your console loggi
 ```bash
 npm install @kaehehehe/visual-console
 # or
-pnpm add @kaehehehe/visual-console
-# or
 yarn add @kaehehehe/visual-console
-
+# or
+pnpm add @kaehehehe/visual-console
 ```
 
 ### Usage 🎨
@@ -61,5 +60,18 @@ vc.log({
 | `assert`         | Conditional assert log   | `message`, `consoleStyle` |
 | `group`          | Start a group in console | `message`, `consoleStyle` |
 | `groupCollapsed` | Start a collapsed group  | `message`, `consoleStyle` |
+
+### Important Notice for Production Builds ⚠️
+
+- This library uses process.env.NODE_ENV to detect the environment and disable console logs in production.
+- Make sure your build tool (e.g., Vite, Webpack, etc.) properly sets process.env.NODE_ENV to "production" when creating production bundles.
+- If NODE_ENV is not set correctly, console logs may still appear in your production code.
+- Most modern bundlers automatically handle this, but double-check your build configuration to ensure dead code elimination works as expected.
+- For best results, run your production build command with environment variables properly configured, for example:
+
+```bash
+NODE_ENV=production vite build
+```
+
 
 
