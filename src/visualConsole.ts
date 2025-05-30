@@ -6,6 +6,8 @@ type ConsoleMethod = keyof Console;
 type LogLevel = keyof typeof consoleThemes;
 
 const createVisualConsole = () => {
+  const isDev = process.env.NODE_ENV === "development";
+
   const privateMethod = ({
     method,
     message,
@@ -15,6 +17,8 @@ const createVisualConsole = () => {
     message: string;
     consoleStyle: ConsoleStyle;
   }) => {
+    if (!isDev) return;
+
     const cssStyle = objectToCSSStyleString(consoleStyle);
     (console[method] as any)(`%c${message}`, cssStyle);
   };
