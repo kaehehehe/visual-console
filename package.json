@@ -1,6 +1,6 @@
 {
   "name": "@kaehehehe/visual-console",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A lightweight and customizable console logging library that enhances your developer experience by adding stylish, themeable, and emoji-supported visual logs. Perfect for debugging with clarity and flair.",
   "main": "dist/visual-console.es.js",
   "module": "dist/visual-console.es.js",
