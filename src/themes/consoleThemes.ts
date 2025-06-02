@@ -1,6 +1,8 @@
 import { ConsoleStyle } from "../types/visualConsole";
 
-export const consoleThemes: Record<string, ConsoleStyle> = {
+export type ConsoleTheme = "info" | "success" | "warn" | "error";
+
+export const consoleThemes: Record<ConsoleTheme, ConsoleStyle> = {
   info: {
     color: "#1E90FF",
     background: "#E6F0FF",
