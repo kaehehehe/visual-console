@@ -22,7 +22,7 @@ pnpm add @kaehehehe/visual-console
 ```ts
 import vc from "@kaehehehe/visual-console"
 
-// Logs with cute themed emojis
+// Logs with theme
 vc.log("✅ Success log!", { theme: "success" });
 vc.info("💡 Info log!", { theme: "info" });
 vc.warn("⚠️ Warning log!", { theme: "warn" });
