@@ -6,7 +6,6 @@ type ConsoleMethod = keyof typeof console;
 type LogLevel = keyof typeof consoleThemes;
 
 interface VisualConsoleOptions {
-  text: string;
   theme?: LogLevel;
   style?: ConsoleStyle;
 }
@@ -14,14 +13,18 @@ interface VisualConsoleOptions {
 const createVisualConsole = () => {
   const isDev = process.env.NODE_ENV === "development";
 
-  const print = (method: ConsoleMethod, options: VisualConsoleOptions) => {
+  const print = (
+    method: ConsoleMethod,
+    text: string,
+    options?: VisualConsoleOptions,
+  ) => {
     if (!isDev) return;
 
-    const themeStyle = options.theme ? consoleThemes[options.theme] : {};
-    const customStyle = options.style || {};
+    const themeStyle = options?.theme ? consoleThemes[options.theme] : {};
+    const customStyle = options?.style || {};
     const style = objectToCSSStyleString({ ...themeStyle, ...customStyle });
 
-    (console[method] as any)(`%c${options.text}`, style);
+    (console[method] as any)(`%c${text}`, style);
   };
 
   const methods: ConsoleMethod[] = [
@@ -34,12 +37,14 @@ const createVisualConsole = () => {
     "groupCollapsed",
   ];
 
-  // eslint-disable-next-line no-unused-vars
-  const vc: Record<ConsoleMethod, (options: VisualConsoleOptions) => void> =
-    {} as any;
+  const vc = {} as Record<
+    ConsoleMethod,
+    // eslint-disable-next-line no-unused-vars
+    (text: string, options?: VisualConsoleOptions) => void
+  >;
 
   for (const method of methods) {
-    vc[method] = (options: VisualConsoleOptions) => print(method, options);
+    vc[method] = (text, options) => print(method, text, options);
   }
 
   return vc;
