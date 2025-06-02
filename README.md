@@ -23,10 +23,10 @@ pnpm add @kaehehehe/visual-console
 import vc from "visual-console";
 
 // Logs with cute themed emojis
-vc.logWithTheme({ message: "Success log!", theme: "success" });
-vc.logWithTheme({ message: "Info log!", theme: "info" });
-vc.logWithTheme({ message: "Warning log!", theme: "warn" });
-vc.logWithTheme({ message: "Error log!", theme: "error" });
+vc.log({ text: "✅ Success log!", theme: "success" });
+vc.info({ text: "💡 Info log!", theme: "info" });
+vc.warn({ text: "⚠️ Warning log!", theme: "warn" });
+vc.error({ text: "🚨 Error log!", theme: "error" });
 ```
 
 ![스크린샷 2025-05-29 11 29 03](https://github.com/user-attachments/assets/ffaff57b-2b58-47f9-a67d-8c02257e9722)
@@ -35,8 +35,8 @@ vc.logWithTheme({ message: "Error log!", theme: "error" });
 ```ts
 // Custom colorful log 💜
 vc.log({
-  message: "Custom styled log 💖",
-  consoleStyle: {
+  text: "Custom styled log 💖",
+  style: {
     color: "#FF00FF",
     background: "#FFF0FF",
     padding: "5px 10px",
@@ -50,16 +50,15 @@ vc.log({
 
 ### API Summary 📚
 
-| Method           | What it does             | Params                    |
-| ---------------- | ------------------------ | ------------------------- |
-| `log`            | Basic log                | `message`, `consoleStyle` |
-| `logWithTheme`   | Logs with a pretty theme | `message`, `theme`        |
-| `info`           | Info level log           | `message`, `consoleStyle` |
-| `warn`           | Warning level log        | `message`, `consoleStyle` |
-| `error`          | Error level log          | `message`, `consoleStyle` |
-| `assert`         | Conditional assert log   | `message`, `consoleStyle` |
-| `group`          | Start a group in console | `message`, `consoleStyle` |
-| `groupCollapsed` | Start a collapsed group  | `message`, `consoleStyle` |
+| Method           | What it does             | Params                                            |
+| ---------------- | ------------------------ | ------------------------------------------------- |
+| `log`            | Basic log                | `(text: string, options?: { theme?, style? })` |
+| `info`           | Info level log           | `(text: string, options?: { theme?, style? })` |
+| `warn`           | Warning level log        | `(text: string, options?: { theme?, style? })` |
+| `error`          | Error level log          | `(text: string, options?: { theme?, style? })` |
+| `assert`         | Conditional assert log   | `(text: string, options?: { theme?, style? })` |
+| `group`          | Start a group in console | `(text: string, options?: { theme?, style? })` |
+| `groupCollapsed` | Start a collapsed group  | `(text: string, options?: { theme?, style? })` |
 
 ### Important Notice for Production Builds ⚠️
 
