@@ -1,7 +1,3 @@
-import visualConsole from "./visualConsole";
-
-export const vc = visualConsole;
-export { visualConsole };
-export default vc;
-
+export { default as vc } from "./visualConsole";
 export type { ConsoleStyle } from "./types/visualConsole";
+export { consoleThemes } from "./themes/consoleThemes";

@@ -1,103 +1,56 @@
+import { consoleThemes } from "./themes/consoleThemes";
 import { ConsoleStyle } from "./types/visualConsole";
 import objectToCSSStyleString from "./utils/objectToCSSStyleString";
-import { consoleThemes, emojiMap } from "./themes/consoleThemes";
 
-type ConsoleMethod = keyof Console;
+type ConsoleMethod = keyof typeof console;
 type LogLevel = keyof typeof consoleThemes;
+
+interface VisualConsoleOptions {
+  theme?: LogLevel;
+  style?: ConsoleStyle;
+}
 
 const createVisualConsole = () => {
   const isDev = process.env.NODE_ENV === "development";
 
-  const privateMethod = ({
-    method,
-    message,
-    consoleStyle,
-  }: {
-    method: ConsoleMethod;
-    message: string;
-    consoleStyle: ConsoleStyle;
-  }) => {
+  const privateMethod = (
+    method: ConsoleMethod,
+    text: string,
+    options?: VisualConsoleOptions,
+  ) => {
     if (!isDev) return;
 
-    const cssStyle = objectToCSSStyleString(consoleStyle);
-    (console[method] as any)(`%c${message}`, cssStyle);
-  };
+    const themeStyle = options?.theme ? consoleThemes[options.theme] : {};
+    const customStyle = options?.style || {};
+    const style = objectToCSSStyleString({ ...themeStyle, ...customStyle });
 
-  const logWithTheme = ({
-    method = "log",
-    message,
-    theme,
-  }: {
-    method?: ConsoleMethod;
-    message: string;
-    theme: LogLevel;
-  }) => {
-    const consoleStyle = consoleThemes[theme];
-    const emoji = emojiMap[theme] || "";
-    privateMethod({ method, message: `${emoji} ${message}`, consoleStyle });
+    (console[method] as any)(`%c${text}`, style);
   };
 
   return {
-    log: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "log", message, consoleStyle }),
+    log: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("log", text, options),
 
-    logWithTheme,
+    info: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("info", text, options),
 
-    info: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "info", message, consoleStyle }),
+    warn: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("warn", text, options),
 
-    warn: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "warn", message, consoleStyle }),
+    error: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("error", text, options),
 
-    error: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "error", message, consoleStyle }),
+    assert: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("assert", text, options),
 
-    assert: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "assert", message, consoleStyle }),
+    group: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("group", text, options),
 
-    group: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "group", message, consoleStyle }),
-
-    groupCollapsed: ({
-      message,
-      consoleStyle,
-    }: {
-      message: string;
-      consoleStyle: ConsoleStyle;
-    }) => privateMethod({ method: "groupCollapsed", message, consoleStyle }),
+    groupCollapsed: (text: string, options?: VisualConsoleOptions) =>
+      privateMethod("groupCollapsed", text, options),
   };
 };
 
-const visualConsole = createVisualConsole();
+const vc = createVisualConsole();
 
-export default visualConsole;
+export default vc;

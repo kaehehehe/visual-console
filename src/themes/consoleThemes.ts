@@ -30,10 +30,3 @@ export const consoleThemes: Record<string, ConsoleStyle> = {
     borderRadius: "4px",
   },
 };
-
-export const emojiMap: Record<string, string> = {
-  success: "✅",
-  info: "💡",
-  warn: "⚠️",
-  error: "🚨",
-};
