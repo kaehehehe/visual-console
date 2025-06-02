@@ -6,6 +6,7 @@ type ConsoleMethod = keyof typeof console;
 type LogLevel = keyof typeof consoleThemes;
 
 interface VisualConsoleOptions {
+  text: string;
   theme?: LogLevel;
   style?: ConsoleStyle;
 }
@@ -13,42 +14,35 @@ interface VisualConsoleOptions {
 const createVisualConsole = () => {
   const isDev = process.env.NODE_ENV === "development";
 
-  const privateMethod = (
-    method: ConsoleMethod,
-    text: string,
-    options?: VisualConsoleOptions,
-  ) => {
+  const print = (method: ConsoleMethod, options: VisualConsoleOptions) => {
     if (!isDev) return;
 
-    const themeStyle = options?.theme ? consoleThemes[options.theme] : {};
-    const customStyle = options?.style || {};
+    const themeStyle = options.theme ? consoleThemes[options.theme] : {};
+    const customStyle = options.style || {};
     const style = objectToCSSStyleString({ ...themeStyle, ...customStyle });
 
-    (console[method] as any)(`%c${text}`, style);
+    (console[method] as any)(`%c${options.text}`, style);
   };
 
-  return {
-    log: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("log", text, options),
+  const methods: ConsoleMethod[] = [
+    "log",
+    "info",
+    "warn",
+    "error",
+    "assert",
+    "group",
+    "groupCollapsed",
+  ];
 
-    info: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("info", text, options),
+  // eslint-disable-next-line no-unused-vars
+  const vc: Record<ConsoleMethod, (options: VisualConsoleOptions) => void> =
+    {} as any;
 
-    warn: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("warn", text, options),
+  for (const method of methods) {
+    vc[method] = (options: VisualConsoleOptions) => print(method, options);
+  }
 
-    error: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("error", text, options),
-
-    assert: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("assert", text, options),
-
-    group: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("group", text, options),
-
-    groupCollapsed: (text: string, options?: VisualConsoleOptions) =>
-      privateMethod("groupCollapsed", text, options),
-  };
+  return vc;
 };
 
 const vc = createVisualConsole();
