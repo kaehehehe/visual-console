@@ -3,7 +3,6 @@ Styled console logs made simple — a cute visual wrapper for your console loggi
 
 ### Features 🌈
 - Pretty themed logs: info, success, warn, error
-- Default cute emojis for each theme
 - Easy custom styles for your logs
 - Simple API for quick & delightful debugging
 
