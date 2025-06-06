@@ -1,5 +1,5 @@
 # @kaehehehe/visual-console 🐰✨
-Styled console logs made simple — a cute visual wrapper for your console logging with fun themes and emojis! 🎉
+Styled console logs made simple - a cute visual wrapper for your console logging with fun themes and custom styles! 🎉
 
 ### Features 🌈
 - Pretty themed logs: info, success, warn, error
